@@ -37,6 +37,8 @@ app.post("/", (req, res) => {
     method: "POST",
     auth: process.env.MAILCHIMP_API_KEY
   }
+  console.log(process.env.MAILCHIMP_URI); 
+  console.log(process.env.MAILCHIMP_API_KEY);
   const request = https.request(url, options, (response) => {
 
    console.log("RESPONSE: " + response.statusCode);
