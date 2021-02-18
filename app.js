@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
@@ -8,7 +10,7 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/signup.html");
+  res.sendFile(__dirname + "/subscribe.html");
 });
 
 app.post("/", (req, res) => {
@@ -30,10 +32,10 @@ app.post("/", (req, res) => {
   }
   var jsonData = JSON.stringify(data);
 
-  const url = "https://us7.api.mailchimp.com/3.0/lists/fd01ad1683";
+  const url = process.env.MAILCHIMP_URI;
   const options = {
     method: "POST",
-    auth: "shawn:73c4f8f20de8906a5b23f8a92e6ec41c-us7"
+    auth: process.env.MAILCHIMP_API_KEY
   }
   const request = https.request(url, options, (response) => {
 
@@ -62,8 +64,3 @@ app.post("/failure", (req, res) => {
 app.listen(process.env.PORT || 3000, () => {
   console.log("Server up and running on port 3000");
 });
-
-
-//73c4f8f20de8906a5b23f8a92e6ec41c-us7
-
-// fd01ad1683
